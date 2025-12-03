@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quản Lý Khách Hàng - PRO Version</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main>
+
+  <!-- =========================
+       LOGIN SCREEN
+       ========================= -->
+  <section id="login-screen" class="center-box">
+    <h2>Đăng nhập hệ thống</h2>
+    <label for="login-id" class="sr-only">ID</label>
+    <input id="login-id" type="text" placeholder="ID" autocomplete="username">
+    <label for="login-pass" class="sr-only">Mật khẩu</label>
+    <input id="login-pass" type="password" placeholder="Mật khẩu" autocomplete="current-password">
+    <button id="login-btn" type="button">Đăng nhập</button>
+    <p id="login-error" role="alert" aria-live="polite"></p>
+  </section>
+
+  <!-- =========================
+       MAIN MENU
+       ========================= -->
+  <section id="main-menu" class="hidden center-box">
+    <h2>MENU CHÍNH</h2>
+    <nav>
+      <button id="btn-show-search" type="button">Tìm kiếm khách hàng</button>
+      <button id="btn-show-add" type="button">Thêm khách hàng mới</button>
+      <button id="btn-logout">Đăng xuất</button>
+    </nav>
+  </section>
+
+  <!-- =========================
+       SEARCH MENU
+       ========================= -->
+  <section id="search-menu" class="hidden center-box">
+    <h2>TÌM KIẾM KHÁCH HÀNG</h2>
+
+    <div class="filters">
+      <div>
+        <label for="search-prefecture">都道府県 (Tỉnh)</label>
+        <select id="search-prefecture"></select>
+      </div>
+      <div>
+        <label for="search-city-text">市区町村 (Thành phố / Quận)</label>
+        <input id="search-city-text" placeholder="Nhập tên thành phố">
+      </div>
+      <div>
+        <label for="search-chome">丁目</label>
+        <input id="search-chome" placeholder="Ví dụ: 1, 2-3">
+      </div>
+      <div>
+        <label for="search-zipcode">郵便番号</label>
+        <input id="search-zipcode" placeholder="Nhập mã bưu điện">
+      </div>
+      <div>
+        <label for="search-name">Tên khách hàng</label>
+        <input id="search-name" placeholder="Nhập tên (hoặc 1 phần tên)">
+      </div>
+      <div>
+        <label for="search-payment">Tháng thanh toán</label>
+        <select id="search-payment"></select>
+      </div>
+
+      <div style="margin-top:10px;">
+        <button id="btn-search-address" type="button">Tìm theo địa chỉ</button>
+        <button id="btn-search-zipcode" type="button">Tìm theo 郵便番号</button>
+        <button id="btn-search-name" type="button">Tìm theo tên</button>
+        <button id="btn-search-payment" type="button">Tìm theo tháng</button>
+      </div>
+    </div>
+
+    <button id="btn-back-from-search" class="back">Quay lại</button>
+    <div id="search-results" aria-live="polite"></div>
+  </section>
+
+  <!-- =========================
+       ADD / EDIT CUSTOMER FORM
+       ========================= -->
+  <section id="add-menu" class="hidden center-box">
+    <h2>THÊM / SỬA KHÁCH HÀNG</h2>
+
+    <form id="customer-form">
+      <input type="hidden" id="editing-index">
+
+      <fieldset>
+        <legend>THÔNG TIN CƠ BẢN</legend>
+        <label for="name">Tên khách hàng</label>
+        <input id="name" required>
+        <label for="dob">Ngày sinh</label>
+        <input id="dob" type="date">
+        <label for="phone">Số điện thoại cá nhân</label>
+        <input id="phone">
+        <label for="company">Trường / Công ty</label>
+        <input id="company">
+        <label for="company-phone">SĐT công ty</label>
+        <input id="company-phone">
+      </fieldset>
+
+      <fieldset>
+        <legend>ĐỊA CHỈ NHẬT BẢN</legend>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <label for="zipcode">郵便番号</label>
+          <input id="zipcode" maxlength="8">
+          <button type="button" id="btn-lookup-zipcode">Tra 郵便番号</button>
+        </div>
+        <div>
+          <label for="prefecture">都道府県</label>
+          <select id="prefecture"></select>
+        </div>
+        <div>
+          <label for="city-text">市区町村</label>
+          <input id="city-text" placeholder="Nhập tên thành phố">
+        </div>
+        <div style="display:flex;gap:8px;">
+          <div style="flex:1;">
+            <label for="chome">丁目</label>
+            <input id="chome">
+          </div>
+          <div style="flex:1;">
+            <label for="ban">番</label>
+            <input id="ban">
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <div style="flex:1;">
+            <label for="go">号</label>
+            <input id="go">
+          </div>
+          <div style="flex:1;">
+            <label for="building">Tòa nhà / Phòng</label>
+            <input id="building">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>THÔNG TIN THANH TOÁN</legend>
+        <label for="payment-month">Tháng thanh toán</label>
+        <input id="payment-month" placeholder="YYYY-MM">
+        <label for="paid">Trạng thái thanh toán</label>
+        <select id="paid">
+          <option value="false">Chưa TT</option>
+          <option value="true">Đã TT</option>
+        </select>
+      </fieldset>
+
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button type="submit" id="btn-save">Lưu</button>
+        <button type="button" id="btn-reset" onclick="resetAddForm()">Reset</button>
+        <button type="button" class="back" id="btn-back-from-add">Quay lại</button>
+      </div>
+
+      <p id="add-status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
